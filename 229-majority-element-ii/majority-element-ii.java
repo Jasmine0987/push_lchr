@@ -1,0 +1,36 @@
+class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+        int can1 = 0, can2 = 0;
+        int c1 = 0, c2 = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (c1 > 0 && nums[i] == can1) {
+                c1++;
+            } else if (c2 > 0 && nums[i] == can2) {
+                c2++;
+            } else if (c1 == 0) {
+                can1 = nums[i];
+                c1 = 1;
+            } else if (c2 == 0) {
+                can2 = nums[i];
+                c2 = 1;
+            } else {
+                c1--;
+                c2--;
+            }
+        }
+        c1 = 0;
+        c2 = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == can1) c1++;
+            else if (nums[i] == can2) c2++;
+        }
+        List<Integer> ans = new ArrayList<>();
+        if (c1 > nums.length / 3) {
+            ans.add(can1);
+        }
+        if (c2 > nums.length / 3) {
+            ans.add(can2);
+        }
+        return ans;
+    }
+}
